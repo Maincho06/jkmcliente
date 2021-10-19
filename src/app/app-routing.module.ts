@@ -5,8 +5,8 @@ import { PagesRoutingModule } from './pages/pages.routing';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/home/productos', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent}
+  { path: '', redirectTo: '/productos', pathMatch: 'full' },
+  { path: '', component: HomeComponent}
 
 ];
 
