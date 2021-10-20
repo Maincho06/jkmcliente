@@ -1,1 +1,38 @@
-<p>contactenos works!</p>
+<div>
+    <img src="assets/images/contactanos.png" width="100%" height="250px">
+    <form class="formulario" [formGroup]="formularioGroup" (ngSubmit)="enviarSolicitud()">
+        <div class="p-field">
+            <label for="username">Nombre</label>
+            <input id="username" pInputText placeholder="Ingrese su nombre" formControlName="nombre" />
+        </div>
+        <div class="p-field">
+            <label for="email">Correo electrónico</label>
+            <input id="email" pInputText placeholder="Ingrese su correo electrónico" formControlName="emailAddress" />
+        </div>
+        <div class="p-field">
+            <label for="telefono">Telefono / Celular</label>
+            <input id="telefono" pInputText placeholder="Ingrese un numero de celular" formControlName="telefono" />
+        </div>
+        <div class="p-field">
+            <label for="email">Empresa / Organización</label>
+            <input id="email" pInputText placeholder="Ingrese su Empresa / Organización" formControlName="empresa" />
+        </div>
+        <div class="p-field text-area">
+            <label for="email">Descripción</label>
+            <textarea rows="12" pInputTextarea [autoResize]="true" formControlName="mensaje"></textarea>
+        </div>
+        <button pButton pRipple type="submit" label="Enviar" class="p-button-raised"
+            [disabled]="formularioGroup.invalid"></button>
+        <div class="banner">
+            <h3>JKM REDES Y SERVICIOS EIRL</h3>
+            <span> Av. Surco 638 of. 202 - Santiago de Surco </span>
+            <br />
+            <br />
+            <span> email: ventas@jkm.pe</span>
+            <br />
+            <span> Fijo: +51(1)605-9674</span>
+            <br />
+            <span> Celular: 952040123</span>
+        </div>
+    </form>
+</div>
