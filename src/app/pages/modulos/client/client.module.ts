@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { ContactenosComponent } from './components/contactenos/contactenos.component';
 import { ServiciosComponent } from './components/servicios/servicios.component';
+import { SharedModule } from '../../../shared/shared.module';
 
 
 const COMPONENTS = [
@@ -19,6 +20,7 @@ const COMPONENTS = [
   ],
   imports: [
     CommonModule,
+    SharedModule
   ],
   exports: [ 
     COMPONENTS

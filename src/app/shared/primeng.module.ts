@@ -3,6 +3,9 @@ import {SidebarModule} from 'primeng/sidebar';
 import {ButtonModule} from 'primeng/button';
 import {TabViewModule} from 'primeng/tabview';
 import {MenubarModule} from 'primeng/menubar';
+import { DropdownModule } from "primeng/dropdown";
+
+
 
 
 const PRIMENG = [
@@ -10,6 +13,7 @@ const PRIMENG = [
   ButtonModule,
   TabViewModule,
   MenubarModule,
+  DropdownModule,
 ];
 
 @NgModule({

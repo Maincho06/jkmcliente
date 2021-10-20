@@ -1,1 +1,39 @@
-<p>contactenos works!</p>
+<div class="contenedor">
+    <img src="assets/imagen/contactenos.jpg" class="imag1" />
+    <div class="texto-encima">Contactenos</div>
+</div>
+
+<div class="p-fluid p-grid">
+
+    <div class="p-field p-col-12 p-md-4">
+        <span class="p-float-label">
+            <input type="text" id="inputtext" pInputText [(ngModel)]="value1" />
+            <label for="inputtext">Nombre y Apellido</label>
+        </span>
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+        <span class="p-float-label">
+            <input type="text" id="inputtext" pInputText [(ngModel)]="value2" />
+            <label for="inputtext">Email</label>
+        </span>
+    </div>
+
+    <div class="p-field p-col-12 p-md-4">
+        <span class="p-float-label">
+            <input type="text" id="inputtext" pInputText [(ngModel)]="value3" />
+            <label for="inputtext">Empresa / Organización</label>
+        </span>
+    </div>
+
+</div>
+
+
+<div class="p-field p-col-12 p-md-4">
+    <span class="p-float-label">
+        <textarea inputId="textarea" rows="3" cols="30" [(ngModel)]="value4" pInputTextarea></textarea>
+        <label for="textarea">Descripción</label>
+    </span>
+</div>
+
+<button pButton pRipple type="button" label="Enviar" class="p-button-raised p-button-secondary"></button>
