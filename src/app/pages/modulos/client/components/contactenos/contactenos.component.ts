@@ -19,24 +19,27 @@ export class ContactenosComponent implements OnInit {
 
   ngOnInit() {
     this.formularioGroup = new FormGroup({
-      nombre      : new FormControl(null, [Validators.required]),
-      emailAddress: new FormControl(null, [Validators.required]),
-      telefono    : new FormControl(null, [Validators.required]),
-      empresa     : new FormControl(null, [Validators.required]),
-      mensaje     : new FormControl(null, [Validators.required]),
+      nombre: new FormControl(null, [Validators.required]),
+      emailAddress: new FormControl(null, [
+        Validators.required,
+        Validators.email,
+      ]),
+      telefono: new FormControl(null, [Validators.required]),
+      empresa: new FormControl(null, [Validators.required]),
+      mensaje: new FormControl(null, [Validators.required]),
     });
   }
 
   async enviarSolicitud() {
     try {
       await this._clienteService
-        .sendEmailCotizar(this.formularioGroup.value)
+        .sendEmailSolicitud(this.formularioGroup.value)
         .toPromise();
       this.formularioGroup.reset();
       toast({
-        title         : 'Correo enviado',
-        message       : 'El correo ha sido enviado con exito',
-        type          : 'success',
+        title: 'Correo enviado',
+        message: 'El correo ha sido enviado con exito',
+        type: 'success',
         messageService: this._messageService,
       });
     } catch (error) {

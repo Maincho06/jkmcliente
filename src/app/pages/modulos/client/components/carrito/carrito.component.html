@@ -20,28 +20,31 @@
                 </ng-template>
             </p-carousel>
         </div>
-        <form class="formulario">
+        <form class="formulario" (ngSubmit)="enviarCotizacion()" [formGroup]="contactoForm">
             <div class="p-field">
                 <label for="username">Nombre</label>
-                <input id="username" pInputText placeholder="Ingrese su nombre" />
+                <input id="username" pInputText placeholder="Ingrese su nombre" formControlName="nombre" />
             </div>
             <div class="p-field">
                 <label for="email">Correo electrónico</label>
-                <input id="email" pInputText placeholder="Ingrese su correo electrónico" />
+                <input id="email" pInputText placeholder="Ingrese su correo electrónico"
+                    formControlName="emailAddress" />
             </div>
             <div class="p-field">
                 <label for="telefono">Telefono / Celular</label>
-                <input id="telefono" pInputText placeholder="Ingrese un numero de celular" />
+                <input id="telefono" pInputText placeholder="Ingrese un numero de celular" formControlName="telefono" />
             </div>
             <div class="p-field">
                 <label for="email">Empresa / Organización</label>
-                <input id="email" pInputText placeholder="Ingrese su Empresa / Organización" />
+                <input id="email" pInputText placeholder="Ingrese su Empresa / Organización"
+                    formControlName="empresa" />
             </div>
             <div class="p-field text-area">
-                <label for="email">Descripción</label>
-                <textarea rows="12" pInputTextarea [autoResize]="true"></textarea>
+                <label for="email">Instrucciones Adicionales</label>
+                <textarea rows="12" pInputTextarea [autoResize]="true" formControlName="mensaje"></textarea>
             </div>
-            <button pButton pRipple type="submit" label="Enviar" class="p-button-raised"></button>
+            <button pButton pRipple type="submit" label="Enviar" class="p-button-raised"
+                [disabled]="contactoForm.invalid"></button>
         </form>
     </ng-container>
     <ng-template #noCarrito>

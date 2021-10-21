@@ -17,7 +17,7 @@ export class CardProductoComponent implements OnInit {
     this.productForm.valueChanges.subscribe((product) => {
       const productos = JSON.parse(getState(PRODUCTOS_KEY) || '[]');
       const newProducts =
-        productos?.filter((x) => x.idCatalogo !== product.idCatalogo) || [];
+        productos?.filter((x) => x.idCatalogo !== product.idCatalogo ) || [];
       setState(PRODUCTOS_KEY, [...newProducts, product]);
     });
   }

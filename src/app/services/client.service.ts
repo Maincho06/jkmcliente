@@ -13,8 +13,14 @@ export class ClienteService extends BaseService {
     super();
   }
 
-  sendEmailCotizar(contact: IContactUs): Observable<any> {
+  sendEmailSolicitud(contact: IContactUs): Observable<any> {
     return this.http.post<any>(`${NOTIFICACION_URL}/Contact`, contact, {
+      headers: this.obtenerHeaders(),
+    });
+  }
+
+  sendEmailCotizar(contact: IContactUs): Observable<any> {
+    return this.http.post<any>(`${NOTIFICACION_URL}/Cotizacion`, contact, {
       headers: this.obtenerHeaders(),
     });
   }

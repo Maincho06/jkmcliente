@@ -1,6 +1,15 @@
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { getState, PRODUCTOS_KEY, SERVICIOS_KEY } from '@utils/storage';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ClienteService } from '@services/client.service';
+import {
+  clearState,
+  getState,
+  PRODUCTOS_KEY,
+  SERVICIOS_KEY,
+} from '@utils/storage';
+import { toast } from '@utils/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-carrito',
@@ -9,11 +18,16 @@ import { getState, PRODUCTOS_KEY, SERVICIOS_KEY } from '@utils/storage';
 })
 export class CarritoComponent {
   productForm: FormArray = new FormArray([]);
+  contactoForm: FormGroup;
   serviciosArr;
 
   responsiveOptions;
 
-  constructor() {
+  constructor(
+    private _clienteService: ClienteService,
+    private _messageService: MessageService,
+    private _router: Router
+  ) {
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -48,6 +62,14 @@ export class CarritoComponent {
       return x;
     });
     this.updateServices();
+
+    this.contactoForm = new FormGroup({
+      nombre: new FormControl(null, [Validators.required]),
+      emailAddress: new FormControl(null, [Validators.required, Validators.email]),
+      telefono: new FormControl(null, [Validators.required]),
+      empresa: new FormControl(null, [Validators.required]),
+      mensaje: new FormControl(null),
+    });
   }
 
   updateServices() {
@@ -58,7 +80,32 @@ export class CarritoComponent {
     });
   }
 
+  async enviarCotizacion() {
+    const productos = JSON.parse(getState(PRODUCTOS_KEY) || '[]');
+    const servicios = JSON.parse(getState(SERVICIOS_KEY) || '[]');
+
+    const body = {
+      ...this.contactoForm.value,
+      productos,
+      servicios,
+    };
+
+    try {
+      await this._clienteService.sendEmailCotizar(body).toPromise();
+      toast({
+        title: 'Correo enviado',
+        message: 'El correo ha sido enviado con exito',
+        type: 'success',
+        messageService: this._messageService,
+      });
+      clearState();
+      this._router.navigate(["/productos"])
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   get getProductos() {
-    return this.productForm.controls
+    return this.productForm.controls;
   }
 }
