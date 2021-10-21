@@ -1,70 +1,50 @@
 <div class="px-4">
-    <h1 class="text-center py-4">Productos y servicios seleccionados</h1>
-    <div>
-        <h3>Productos</h3>
-        <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false"
-            [responsiveOptions]="responsiveOptions">
-            <ng-template let-product pTemplate="item">
-                <div class="card-carusel shadow-2 m-2">
-                    <div class="p-2 w-full flex">
-                        <img [src]="product.image" [alt]="product.name" />
-                    </div>
-                    <div class="p-4">
-                        <span class="text-lg font-bold">{{product.name}}</span>
-                        <h6 class="mb-3">${{product.price}}</h6>
-                        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
-                            incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" inputStyleClass="w-full"
-                            [min]="0"> </p-inputNumber>
-                    </div>
-                </div>
-            </ng-template>
-        </p-carousel>
-    </div>
-    <div>
-        <h3>Servicios</h3>
-        <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false"
-            [responsiveOptions]="responsiveOptions">
-            <ng-template let-product pTemplate="item">
-                <div class="card-carusel shadow-2 m-2">
-                    <div class="p-2 w-full flex">
-                        <img [src]="product.image" [alt]="product.name" />
-                    </div>
-                    <div class="p-4">
-                        <span class="text-lg font-bold">{{product.name}}</span>
-                        <h6 class="mb-3">${{product.price}}</h6>
-                        <div class="text-center">
-                            <p-button type="button" styleClass="p-button-rounded mr-2 p-button-danger"
-                                icon="pi pi-trash">
-                            </p-button>
-                            <p-button type="button" styleClass="p-button-rounded" icon="pi pi-search">
-                            </p-button>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </p-carousel>
-    </div>
-    <form class="formulario">
-        <div class="p-field">
-            <label for="username">Nombre</label>
-            <input id="username" pInputText placeholder="Ingrese su nombre" />
+    <ng-container
+        *ngIf="(getProductos && getProductos.length > 0) || (serviciosArr && serviciosArr.length > 0) ; else noCarrito">
+        <h1 class="text-center py-4">Productos y servicios seleccionados</h1>
+        <div *ngIf="getProductos && getProductos.length > 0">
+            <h3>Productos</h3>
+            <p-carousel [value]="getProductos" [numVisible]="3" [numScroll]="3" [circular]="false"
+                [responsiveOptions]="responsiveOptions">
+                <ng-template let-product pTemplate="item">
+                    <app-card-productos [index]="index" [productForm]="product"></app-card-productos>
+                </ng-template>
+            </p-carousel>
         </div>
-        <div class="p-field">
-            <label for="email">Correo electrónico</label>
-            <input id="email" pInputText placeholder="Ingrese su correo electrónico" />
+        <div *ngIf="serviciosArr && serviciosArr.length > 0">
+            <h3>Servicios</h3>
+            <p-carousel [value]="serviciosArr" [numVisible]="3" [numScroll]="3" [circular]="false"
+                [responsiveOptions]="responsiveOptions">
+                <ng-template let-service pTemplate="item">
+                    <app-servicio-card [servicio]="service" (emitChange)="updateServices($event)"></app-servicio-card>
+                </ng-template>
+            </p-carousel>
         </div>
-        <div class="p-field">
-            <label for="telefono">Telefono / Celular</label>
-            <input id="telefono" pInputText placeholder="Ingrese un numero de celular" />
-        </div>
-        <div class="p-field">
-            <label for="email">Empresa / Organización</label>
-            <input id="email" pInputText placeholder="Ingrese su Empresa / Organización" />
-        </div>
-        <div class="p-field text-area">
-            <label for="email">Descripción</label>
-            <textarea rows="12" pInputTextarea [autoResize]="true"></textarea>
-        </div>
-        <button pButton pRipple type="submit" label="Enviar" class="p-button-raised"></button>
-    </form>
+        <form class="formulario">
+            <div class="p-field">
+                <label for="username">Nombre</label>
+                <input id="username" pInputText placeholder="Ingrese su nombre" />
+            </div>
+            <div class="p-field">
+                <label for="email">Correo electrónico</label>
+                <input id="email" pInputText placeholder="Ingrese su correo electrónico" />
+            </div>
+            <div class="p-field">
+                <label for="telefono">Telefono / Celular</label>
+                <input id="telefono" pInputText placeholder="Ingrese un numero de celular" />
+            </div>
+            <div class="p-field">
+                <label for="email">Empresa / Organización</label>
+                <input id="email" pInputText placeholder="Ingrese su Empresa / Organización" />
+            </div>
+            <div class="p-field text-area">
+                <label for="email">Descripción</label>
+                <textarea rows="12" pInputTextarea [autoResize]="true"></textarea>
+            </div>
+            <button pButton pRipple type="submit" label="Enviar" class="p-button-raised"></button>
+        </form>
+    </ng-container>
+    <ng-template #noCarrito>
+
+    </ng-template>
 </div>

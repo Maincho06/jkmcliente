@@ -10,7 +10,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { toast } from '@utils/toast';
 import { MessageService } from 'primeng/api';
-import { getState, TOKEN_KEY } from '@utils/storage';
+import { getState } from '@utils/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -22,17 +22,17 @@ export class InterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token: string = getState(TOKEN_KEY);
+    // const token: string = getState(TOKEN_KEY);
 
     let request = req;
 
-    if (token) {
-      request = req.clone({
-        setHeaders: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-    }
+    // if (token) {
+    //   request = req.clone({
+    //     setHeaders: {
+    //       authorization: `Bearer ${token}`,
+    //     },
+    //   });
+    // }
 
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {

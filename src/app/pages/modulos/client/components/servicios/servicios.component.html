@@ -1,1 +1,5 @@
-<p>servicios works!</p>
+<div class="banner">
+</div>
+<div class="listado-card">
+    <app-servicio-card [servicio]="item" *ngFor="let item of serviciosArr" (emitChange)="updateServices($event)"></app-servicio-card>
+</div>

@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { getState, PRODUCTOS_KEY, SERVICIOS_KEY } from '@utils/storage';
 
 @Component({
-  selector   : 'app-carrito',
+  selector: 'app-carrito',
   templateUrl: 'carrito.component.html',
-  styleUrls  : ['./carrito.component.scss'],
+  styleUrls: ['./carrito.component.scss'],
 })
-export class CarritoComponent implements OnInit {
-  products;
+export class CarritoComponent {
+  productForm: FormArray = new FormArray([]);
+  serviciosArr;
 
   responsiveOptions;
 
   constructor() {
-    this.products = new Array(3).fill(arrProd);
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -29,14 +31,34 @@ export class CarritoComponent implements OnInit {
         numScroll: 1,
       },
     ];
+
+    const products = JSON.parse(getState(PRODUCTOS_KEY) || '[]');
+    products.forEach((x) => {
+      this.productForm.push(
+        new FormGroup({
+          idCatalogo: new FormControl(x.idCatalogo),
+          codigo: new FormControl(x.codigo),
+          imagen: new FormControl(x.imagen),
+          nombre: new FormControl(x.nombre),
+          precio: new FormControl(x.precio),
+          stock: new FormControl(x.stock),
+          cantidad: new FormControl(x.cantidad),
+        })
+      );
+      return x;
+    });
+    this.updateServices();
   }
 
-  ngOnInit() {}
-}
+  updateServices() {
+    const servicios = JSON.parse(getState(SERVICIOS_KEY) || '[]');
+    this.serviciosArr = servicios.map((x) => {
+      x.selected = true;
+      return x;
+    });
+  }
 
-const arrProd = {
-  image:
-    'https://primefaces.org/primeng/showcase/assets/showcase/images/demo/product/blue-band.jpg',
-  price: 15,
-  name: 'Cable aisalador negro',
-};
+  get getProductos() {
+    return this.productForm.controls
+  }
+}

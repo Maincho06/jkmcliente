@@ -1,0 +1,15 @@
+<div>
+    <div class="card shadow-2" [formGroup]="productForm">
+        <img [src]="productForm.get('imagen').value" />
+        <h3 class="mb-2">{{productForm.get('nombre').value}}</h3>
+        <span class="text-black-alpha-60">{{productForm.get('codigo').value}}</span>
+        <div class="flex justify-content-between my-4">
+            <p>{{productForm.get('precio').value | currency:"S/ "}}</p>
+            <p> Stock: {{productForm.get('stock').value}}</p>
+        </div>
+        <p-inputNumber [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+            formControlName="cantidad" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+            inputStyleClass="w-full" [min]="0" [max]="productForm.get('stock').value">
+        </p-inputNumber>
+    </div>
+</div>

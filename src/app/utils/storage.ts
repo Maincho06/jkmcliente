@@ -1,7 +1,5 @@
-export const TOKEN_KEY = 'OAuthToken';
-export const PERMISO_KEY = 'Permisos';
-export const USER_DATA_KEY = 'UserData';
-export const MODULOS_KEY = 'Modulos';
+export const SERVICIOS_KEY = 'Servicios';
+export const PRODUCTOS_KEY = 'Productos';
 
 //
 export const getState = (name: string) => {

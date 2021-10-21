@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { getState, TOKEN_KEY } from '@utils/storage';
+import { getState } from '@utils/storage';
 
 @Injectable({
   providedIn: 'root',

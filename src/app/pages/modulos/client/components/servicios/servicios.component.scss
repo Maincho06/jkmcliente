@@ -1,0 +1,13 @@
+.banner {
+  background-image: url(/assets/images/servicios.png);
+  height: 250px;
+  background-position: center;
+  background-size: cover;
+}
+
+.listado-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
