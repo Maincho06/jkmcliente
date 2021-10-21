@@ -1,13 +1,14 @@
 <div class="px-4">
     <ng-container
         *ngIf="(getProductos && getProductos.length > 0) || (serviciosArr && serviciosArr.length > 0) ; else noCarrito">
-        <h1 class="text-center py-4">Productos y servicios seleccionados</h1>
+        <h2 class="text-center py-4">Productos y servicios seleccionados</h2>
         <div *ngIf="getProductos && getProductos.length > 0">
             <h3>Productos</h3>
             <p-carousel [value]="getProductos" [numVisible]="3" [numScroll]="3" [circular]="false"
                 [responsiveOptions]="responsiveOptions">
                 <ng-template let-product pTemplate="item">
-                    <app-card-productos [index]="index" [productForm]="product"></app-card-productos>
+                    <app-card-productos [index]="index" [productForm]="product" (emitChange)="updateProducts()">
+                    </app-card-productos>
                 </ng-template>
             </p-carousel>
         </div>

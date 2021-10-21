@@ -46,7 +46,32 @@ export class CarritoComponent {
       },
     ];
 
+    this.updateProducts();
+    this.updateServices();
+
+    this.contactoForm = new FormGroup({
+      nombre: new FormControl(null, [Validators.required]),
+      emailAddress: new FormControl(null, [
+        Validators.required,
+        Validators.email,
+      ]),
+      telefono: new FormControl(null, [Validators.required]),
+      empresa: new FormControl(null, [Validators.required]),
+      mensaje: new FormControl(null),
+    });
+  }
+
+  updateServices() {
+    const servicios = JSON.parse(getState(SERVICIOS_KEY) || '[]');
+    this.serviciosArr = servicios.map((x) => {
+      x.selected = true;
+      return x;
+    });
+  }
+
+  updateProducts() {
     const products = JSON.parse(getState(PRODUCTOS_KEY) || '[]');
+    this.productForm.clear();
     products.forEach((x) => {
       this.productForm.push(
         new FormGroup({
@@ -59,23 +84,6 @@ export class CarritoComponent {
           cantidad: new FormControl(x.cantidad),
         })
       );
-      return x;
-    });
-    this.updateServices();
-
-    this.contactoForm = new FormGroup({
-      nombre: new FormControl(null, [Validators.required]),
-      emailAddress: new FormControl(null, [Validators.required, Validators.email]),
-      telefono: new FormControl(null, [Validators.required]),
-      empresa: new FormControl(null, [Validators.required]),
-      mensaje: new FormControl(null),
-    });
-  }
-
-  updateServices() {
-    const servicios = JSON.parse(getState(SERVICIOS_KEY) || '[]');
-    this.serviciosArr = servicios.map((x) => {
-      x.selected = true;
       return x;
     });
   }
@@ -99,7 +107,7 @@ export class CarritoComponent {
         messageService: this._messageService,
       });
       clearState();
-      this._router.navigate(["/productos"])
+      this._router.navigate(['/productos']);
     } catch (err) {
       console.log(err);
     }
