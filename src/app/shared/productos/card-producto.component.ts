@@ -20,12 +20,12 @@ export class CardProductoComponent implements OnInit {
 
       const newProducts =
         productos?.filter((x) => x.idCatalogo !== product.idCatalogo) || [];
-
       if (product.cantidad === 0) {
         setState(PRODUCTOS_KEY, [...newProducts]);
         this.emitChange.emit(true);
+      } else {
+        setState(PRODUCTOS_KEY, [...newProducts, product]);
       }
-      setState(PRODUCTOS_KEY, [...newProducts, product]);
     });
   }
 }
