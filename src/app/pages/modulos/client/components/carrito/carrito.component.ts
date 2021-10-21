@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClienteService } from '@services/client.service';
+import { ObvsService } from '@services/obvs.service';
 import {
   clearState,
   getState,
@@ -26,6 +27,7 @@ export class CarritoComponent {
   constructor(
     private _clienteService: ClienteService,
     private _messageService: MessageService,
+    private _obvsService: ObvsService,
     private _router: Router
   ) {
     this.responsiveOptions = [
@@ -99,6 +101,7 @@ export class CarritoComponent {
     };
 
     try {
+      this._obvsService.toogleSpinner()
       await this._clienteService.sendEmailCotizar(body).toPromise();
       toast({
         title: 'Correo enviado',
@@ -110,6 +113,8 @@ export class CarritoComponent {
       this._router.navigate(['/productos']);
     } catch (err) {
       console.log(err);
+    } finally {
+      this._obvsService.toogleSpinner()
     }
   }
 

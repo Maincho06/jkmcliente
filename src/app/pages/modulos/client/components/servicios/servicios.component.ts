@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '@services/client.service';
+import { ObvsService } from '@services/obvs.service';
 import { getState, SERVICIOS_KEY, setState } from '@utils/storage';
 
 @Component({
@@ -10,10 +11,14 @@ import { getState, SERVICIOS_KEY, setState } from '@utils/storage';
 export class ServiciosComponent implements OnInit {
   serviciosArr = [];
 
-  constructor(private _clienteService: ClienteService) {}
+  constructor(
+    private _clienteService: ClienteService,
+    private _obvsService: ObvsService
+  ) {}
 
   async ngOnInit() {
     try {
+      this._obvsService.toogleSpinner();
       const response = await this._clienteService.getServicios().toPromise();
       const selectedService = JSON.parse(getState(SERVICIOS_KEY) || '[]');
       this.serviciosArr = response.map((x) => {
@@ -25,6 +30,8 @@ export class ServiciosComponent implements OnInit {
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      this._obvsService.toogleSpinner();
     }
   }
 

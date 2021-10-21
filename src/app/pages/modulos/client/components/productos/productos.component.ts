@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ClienteService } from '@services/client.service';
+import { ObvsService } from '@services/obvs.service';
 import { getState, PRODUCTOS_KEY, setState } from '@utils/storage';
 
 @Component({
@@ -11,10 +12,14 @@ import { getState, PRODUCTOS_KEY, setState } from '@utils/storage';
 export class ProductosComponent implements OnInit {
   productForm: FormArray = new FormArray([]);
 
-  constructor(private _clienteService: ClienteService) {}
+  constructor(
+    private _clienteService: ClienteService,
+    private _obvsService: ObvsService,
+  ) {}
 
   async ngOnInit() {
     try {
+      this._obvsService.toogleSpinner();
       const response = await this._clienteService.getCatalogo().toPromise();
       const selectedProducts = JSON.parse(getState(PRODUCTOS_KEY) || '[]');
 
@@ -38,6 +43,8 @@ export class ProductosComponent implements OnInit {
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      this._obvsService.toogleSpinner();
     }
   }
 }

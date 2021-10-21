@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClienteService } from '@services/client.service';
+import { ObvsService } from '@services/obvs.service';
 import { toast } from '@utils/toast';
 import { MessageService } from 'primeng/api';
 
@@ -14,7 +15,8 @@ export class ContactenosComponent implements OnInit {
 
   constructor(
     private _clienteService: ClienteService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _obvsService: ObvsService
   ) {}
 
   ngOnInit() {
@@ -32,6 +34,7 @@ export class ContactenosComponent implements OnInit {
 
   async enviarSolicitud() {
     try {
+      this._obvsService.toogleSpinner()
       await this._clienteService
         .sendEmailSolicitud(this.formularioGroup.value)
         .toPromise();
@@ -44,6 +47,8 @@ export class ContactenosComponent implements OnInit {
       });
     } catch (error) {
       console.log(error);
+    } finally{
+      this._obvsService.toogleSpinner()
     }
   }
 }
