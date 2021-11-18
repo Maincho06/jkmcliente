@@ -8,6 +8,7 @@ import {
   getState,
   PRODUCTOS_KEY,
   SERVICIOS_KEY,
+  setState,
 } from '@utils/storage';
 import { toast } from '@utils/toast';
 import { MessageService } from 'primeng/api';
@@ -30,24 +31,6 @@ export class CarritoComponent {
     private _obvsService: ObvsService,
     private _router: Router
   ) {
-    this.responsiveOptions = [
-      {
-        breakpoint: '1024px',
-        numVisible: 3,
-        numScroll: 3,
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 2,
-        numScroll: 2,
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-    ];
-
     this.updateProducts();
     this.updateServices();
 
@@ -64,11 +47,22 @@ export class CarritoComponent {
   }
 
   updateServices() {
-    const servicios = JSON.parse(getState(SERVICIOS_KEY) || '[]');
-    this.serviciosArr = servicios.map((x) => {
-      x.selected = true;
+    this.serviciosArr = JSON.parse(getState(SERVICIOS_KEY) || '[]');
+  }
+
+  reloadService(serviceSelected) {
+    const cartService = JSON.parse(getState(SERVICIOS_KEY) || '[]');
+    const idServicio = serviceSelected.idServicio;
+    const isSelected = cartService.find((x) => x.idServicio === idServicio);
+
+    this.serviciosArr = this.serviciosArr.map((x) => {
+      if (x.idServicio === idServicio) x.selected = !isSelected;
       return x;
     });
+
+    const addedServices = this.serviciosArr.filter((x) => x.selected);
+    setState(SERVICIOS_KEY, addedServices);
+    this.updateServices();
   }
 
   updateProducts() {
@@ -101,7 +95,8 @@ export class CarritoComponent {
     };
 
     try {
-      this._obvsService.toogleSpinner()
+      this._obvsService.toogleSpinner();
+      console.log(body)
       await this._clienteService.sendEmailCotizar(body).toPromise();
       toast({
         title: 'Correo enviado',
@@ -114,7 +109,7 @@ export class CarritoComponent {
     } catch (err) {
       console.log(err);
     } finally {
-      this._obvsService.toogleSpinner()
+      this._obvsService.toogleSpinner();
     }
   }
 

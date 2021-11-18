@@ -7,7 +7,6 @@ import { ServiciosComponent } from './components/servicios/servicios.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { ServicioCardComponent } from 'app/shared/servicios/card-servicio.component';
-import { CardProductoComponent } from 'app/shared/productos/card-producto.component';
 
 const COMPONENTS = [
   HomeComponent,
@@ -16,7 +15,6 @@ const COMPONENTS = [
   ContactenosComponent,
   CarritoComponent,
   ServicioCardComponent,
-  CardProductoComponent
 ];
 
 @NgModule({

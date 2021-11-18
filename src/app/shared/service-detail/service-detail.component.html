@@ -1,0 +1,7 @@
+<img [src]="control.imagen" class="image-client" />
+<div class="flex-1 mb-3">
+    <h3 class="mb-2">{{control.nombre}}</h3>
+    <span>{{control.descripcion}}</span>
+</div>
+<button pButton pRipple type="button" [icon]="!control.selected ? 'pi pi-heart' : 'pi pi-trash'"
+    class="p-button-rounded p-button-secondary p-button-outlined align-self-center" (click)="selectService()"></button>

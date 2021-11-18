@@ -1,0 +1,10 @@
+<div class="actions">
+    <div class="container">
+        <span class="button left" (click)="changeValue(-1)">-</span>
+        <input [formControl]="cantidadControl" type="number" numbersOnly/>
+        <span class="button right" (click)="changeValue(1)">+</span>
+    </div>
+    <span style="flex: 1"></span>
+    <button pButton pRipple type="button" [icon]="icon" class="p-button-rounded p-button-secondary p-button-outlined"
+        (click)="updateCart()"></button>
+</div>

@@ -1,0 +1,9 @@
+<div class="banner">
+</div>
+<div class="listado-card">
+    <div *ngFor="let item of productForm.controls; let index = index" [formGroup]="item" class="card shadow-2 p-4">
+        <app-product-detail [control]="item"></app-product-detail>
+        <app-actions-card (emitChange)="changeValue($event, index)" (saveChange)="addCart(index)"
+            [cantidadControl]="item.get('cantidad')"></app-actions-card>
+    </div>
+</div>

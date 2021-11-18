@@ -1,0 +1,8 @@
+<div class="banner">
+</div>
+<div class="listado-card">
+    <div *ngFor="let item of serviciosArr; let index = index" class="card shadow-2 p-4">
+        <app-service-detail [control]="item" class="flex flex-column h-full" (emitter)="updateServices($event)">
+        </app-service-detail>
+    </div>
+</div>

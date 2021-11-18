@@ -7,7 +7,7 @@ import { PagesRoutingModule } from './pages.routing';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { PagesComponent } from './pages.component';
-import { ClientModule } from '@modulos/client/client.module';
+import { ClientModule } from '@modulos/client.module';
 
 
 

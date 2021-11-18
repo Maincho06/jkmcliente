@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '@services/client.service';
 import { ObvsService } from '@services/obvs.service';
 import { getState, SERVICIOS_KEY, setState } from '@utils/storage';
+import { toast } from '@utils/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-servicios',
@@ -13,7 +15,8 @@ export class ServiciosComponent implements OnInit {
 
   constructor(
     private _clienteService: ClienteService,
-    private _obvsService: ObvsService
+    private _obvsService: ObvsService,
+    private _messageService: MessageService
   ) {}
 
   async ngOnInit() {
@@ -36,12 +39,22 @@ export class ServiciosComponent implements OnInit {
   }
 
   updateServices(serviceSelected) {
+    const cartService = JSON.parse(getState(SERVICIOS_KEY) || '[]');
+    const idServicio = serviceSelected.idServicio;
+    const isSelected = cartService.find((x) => x.idServicio === idServicio);
+
     this.serviciosArr = this.serviciosArr.map((x) => {
-      const isSelected = serviceSelected.find(
-        (y) => y.idServicio === x.idServicio
-      );
-      x.selected = !!isSelected;
+      if (x.idServicio === idServicio) x.selected = !isSelected;
       return x;
+    });
+
+    const addedServices = this.serviciosArr.filter((x) => x.selected);
+    setState(SERVICIOS_KEY, addedServices);
+    toast({
+      title: 'Carrito',
+      message: !isSelected ? 'Se agregó el servicio' : 'Se elimino el servico',
+      type: 'success',
+      messageService: this._messageService,
     });
   }
 }

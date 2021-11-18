@@ -3,6 +3,22 @@
   border-radius: 8px;
   padding: 0.75rem;
   margin: 10px;
+  // &:hover {
+  //   box-shadow: 0px 7px 30px rgba(0, 0, 0, 0.08),
+  //     0px 22px 30px 2px rgba(0, 0, 0, 0.15), 0px 8px 10px rgba(0, 0, 0, 0.15) !important;
+  // }
+
+  hr {
+    color: #dee2e6
+  }
+
+  span {
+    height : 65px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow     : hidden;
+    // white-space  : nowrap;
+  }
 
   img {
     padding: 0.5rem;

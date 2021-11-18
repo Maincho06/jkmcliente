@@ -1,0 +1,7 @@
+<img [src]="control.get('imagen').value" class="image-client" />
+<h3 class="mb-2">{{control.get('nombre').value}}</h3>
+<span class="text-black-alpha-60">{{control.get('codigo').value}}</span>
+<div class="flex justify-content-between my-2">
+    <p>{{control.get('precio').value | currency:"S/ "}}</p>
+    <p> Stock: {{control.get('stock').value}}</p>
+</div>

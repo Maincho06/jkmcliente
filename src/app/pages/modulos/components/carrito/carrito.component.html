@@ -1,25 +1,27 @@
-<div class="px-4">
+<div class="px-8">
     <ng-container
         *ngIf="(getProductos && getProductos.length > 0) || (serviciosArr && serviciosArr.length > 0) ; else noCarrito">
         <h2 class="text-center py-4">Productos y servicios seleccionados</h2>
         <div *ngIf="getProductos && getProductos.length > 0">
             <h3>Productos</h3>
-            <p-carousel [value]="getProductos" [numVisible]="3" [numScroll]="3" [circular]="false"
-                [responsiveOptions]="responsiveOptions">
-                <ng-template let-product pTemplate="item">
-                    <app-card-productos [index]="index" [productForm]="product" (emitChange)="updateProducts()">
-                    </app-card-productos>
-                </ng-template>
-            </p-carousel>
+            <div class="listado-card">
+                <div *ngFor="let item of productForm.controls; let index = index" [formGroup]="item"
+                    class="card shadow-2 p-4">
+                    <app-product-detail [control]="item"></app-product-detail>
+                    <app-actions-card (emitChange)="changeValue($event, index)" (saveChange)="addCart(index)"
+                        [cantidadControl]="item.get('cantidad')"></app-actions-card>
+                </div>
+            </div>
         </div>
         <div *ngIf="serviciosArr && serviciosArr.length > 0">
             <h3>Servicios</h3>
-            <p-carousel [value]="serviciosArr" [numVisible]="3" [numScroll]="3" [circular]="false"
-                [responsiveOptions]="responsiveOptions">
-                <ng-template let-service pTemplate="item">
-                    <app-servicio-card [servicio]="service" (emitChange)="updateServices($event)"></app-servicio-card>
-                </ng-template>
-            </p-carousel>
+            <div class="listado-card">
+                <div *ngFor="let item of serviciosArr; let index = index" class="card shadow-2 p-4">
+                    <app-service-detail [control]="item" class="flex flex-column h-full"
+                        (emitter)="reloadService($event)">
+                    </app-service-detail>
+                </div>
+            </div>
         </div>
         <form class="formulario" (ngSubmit)="enviarCotizacion()" [formGroup]="contactoForm">
             <div class="p-field">
